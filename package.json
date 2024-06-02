@@ -1,0 +1,32 @@
+{
+  "name": "namastereact",
+  "version": "1.0.0",
+  "description": "This is my code",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeeepaliSharma/React.git"
+  },
+  "keywords": [
+    "React",
+    "Reactjs",
+    "DS"
+  ],
+  "author": "Deepali Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeeepaliSharma/React/issues"
+  },
+  "homepage": "https://github.com/DeeepaliSharma/React#readme",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  }
+}
