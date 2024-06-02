@@ -17,15 +17,12 @@ import Shimmer from "./Shimmer";
             const data =  await fetch ("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.65420&lng=77.23730&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
         
         const json = await data.json();
-       // console.log(json.data.cards[5].card.card.gridElements.infoWithStyle.restaurants);
+       // Optinal chaining
         setressList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         }
-       if (ressList.length === 0)
-        {
-            return <Shimmer/>;
-        }
+      // Conditional rendering
        
-        return(
+        return (ressList.length === 0)? <Shimmer/> : (
             <div className="body">         
             <div className="search">Search</div>     
             <div className="filter">
