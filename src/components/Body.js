@@ -7,8 +7,8 @@ import Shimmer from "./Shimmer";
  const Body = () =>
     {
 
-        const [ressList , setressList] = useState([]);
-
+        const [restaurantList , setrestaurantList] = useState([]);
+        const [searchtext , setsearchtext] =useState("");
         useEffect (()=> {
             fetchData();
         },[]);
@@ -18,24 +18,41 @@ import Shimmer from "./Shimmer";
         
         const json = await data.json();
        // Optinal chaining
-        setressList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+       setrestaurantList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         }
       // Conditional rendering
        
-        return (ressList.length === 0)? <Shimmer/> : (
+        return (restaurantList.length === 0)? <Shimmer/> : (
             <div className="body">         
-            <div className="search">Search</div>     
+           
             <div className="filter">
+            <div className="search">
+                <input type="text" className="search-box" value ={searchtext}
+                 onChange={(e)=>{ setsearchtext  (e.target.value);
+
+                }}>                                     
+                    
+                    </input> 
+                   
+                <button onClick={()=>{
+                   
+
+                    const serachfilter = restaurantList.filter(
+                        (res) => res.info.name.toLowerCase().includes(searchtext.toLowerCase()));
+                        setrestaurantList(serachfilter);
+
+                }}>Search</button>
+                </div>    
                 <button className="filter-btn" onClick= {() => 
-                    {const filteredlist  = ressList.filter(
+                    {const filteredlist  = restaurantList.filter(
                         (res) => res.info.avgRating > 4);
-                       setressList(filteredlist);
+                        setrestaurantList(filteredlist);
                         } }> 
                   Top rated Restaurants  </button>   
            </div>
             <div className="res-container">
             {
-                    ressList.map((restaurant) =>(
+                    restaurantList.map((restaurant) =>(
                         <RestaurantCard key ={restaurant.info.id} resData={restaurant} />
                     ))
                    }
