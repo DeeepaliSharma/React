@@ -1,3 +1,4 @@
+import { CDN_URL } from "../utils.js/constants";
 const  RestaurantCard =(props) =>
     {
         const {resData}= props;
@@ -7,7 +8,7 @@ const  RestaurantCard =(props) =>
         return(
             <div className="res-card" style={{backgroundColor : "lightgray"}}>
                 <img className="res-logo" alt="res-logo"
-                src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_150/" +cloudinaryImageId} />
+                src={ CDN_URL+cloudinaryImageId} />
             
             <h3>{name}</h3>
             <h3>{cuisines.join(", ")}</h3>
