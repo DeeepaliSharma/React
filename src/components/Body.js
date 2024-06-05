@@ -2,23 +2,27 @@ import RestaurantCard from "./RestaurantCard";
 //import resList from "../utils.js/mockdatafile";
 import { useState  ,useEffect} from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+import { APP_API } from "../utils.js/constants";
   
 
  const Body = () =>
     {
 
         const [restaurantList , setrestaurantList] = useState([]);
+        const [filteredrestaurantList ,setfilteredrestaurantList] = useState([]);
         const [searchtext , setsearchtext] =useState("");
         useEffect (()=> {
             fetchData();
         },[]);
 
         const fetchData =async () =>{
-            const data =  await fetch ("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.65420&lng=77.23730&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+            const data =  await fetch (APP_API);
         
         const json = await data.json();
        // Optinal chaining
-       setrestaurantList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+             setrestaurantList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+             setfilteredrestaurantList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         }
       // Conditional rendering
        
@@ -39,21 +43,23 @@ import Shimmer from "./Shimmer";
 
                     const serachfilter = restaurantList.filter(
                         (res) => res.info.name.toLowerCase().includes(searchtext.toLowerCase()));
-                        setrestaurantList(serachfilter);
+                        setfilteredrestaurantList(serachfilter);
 
                 }}>Search</button>
                 </div>    
                 <button className="filter-btn" onClick= {() => 
                     {const filteredlist  = restaurantList.filter(
                         (res) => res.info.avgRating > 4);
-                        setrestaurantList(filteredlist);
+                        setfilteredrestaurantList(filteredlist);
                         } }> 
                   Top rated Restaurants  </button>   
            </div>
             <div className="res-container">
             {
-                    restaurantList.map((restaurant) =>(
-                        <RestaurantCard key ={restaurant.info.id} resData={restaurant} />
+                    filteredrestaurantList.map((restaurant) =>(
+                         <Link key ={restaurant.info.id} to ={"/restaurant/" +restaurant.info.id}>
+                        <RestaurantCard resData={restaurant} />
+                         </Link> 
                     ))
                    }
             </div>
