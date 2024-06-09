@@ -4,6 +4,7 @@ import { useState  ,useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { APP_API } from "../utils.js/constants";
+import useOnlineStatus from "../utils.js/useOnlineStatus";
   
 
  const Body = () =>
@@ -25,6 +26,10 @@ import { APP_API } from "../utils.js/constants";
              setfilteredrestaurantList (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         }
       // Conditional rendering
+
+      const onlineStatus = useOnlineStatus();
+
+      if (onlineStatus=== false) return <h1>Look like you are offline. Please check your Internet connection.</h1>
        
         return (restaurantList.length === 0)? <Shimmer/> : (
             <div className="body">         
