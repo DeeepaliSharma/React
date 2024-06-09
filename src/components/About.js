@@ -8,18 +8,18 @@ class About extends Component{
    constructor(props){
     super(props);
 
-    console.log("Parent Constructor")
+   // console.log("Parent Constructor")
    }
 
 
 
     componentDidMount(){
-        console.log("Parent Mount");
+      //  console.log("Parent Mount");
     }
 
     render(){
 
-        console.log("Parent render");
+       // console.log("Parent render");
         return(
             <div className="about"> 
              <h1>We are bound to deliver quality food.</h1>

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
-import Body from "./components/Body";
-import About from "./components/About";
+//import Body from "./components/Body";
+//import About from "./components/About";
 import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
 import RestaurnatMenu from "./components/RestaurantMenu";
 import { createBrowserRouter , RouterProvider , Outlet} from "react-router-dom";
+import Shimmer from "./components/Shimmer";
 
   
-
+const About = lazy (()=> import("./components/About"));
+const Body = lazy (()=> import("./components/Body"));
 
 const AppLayout =()=>
     {
@@ -28,13 +30,13 @@ const AppLayout =()=>
             children:[
                 {
                     path : "/",
-                    element: <Body/>
+                    element: <Suspense fallback ={<Shimmer/>}> <Body/></Suspense>
 
                 },
 
                 {
                     path:"/about",
-                    element: <About/>,
+                    element:<Suspense fallback ={<Shimmer/>}> <About/></Suspense> ,
                    
         
                 },
